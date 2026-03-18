@@ -1,0 +1,12 @@
+# This repo is used to publish ONLY the people-value-site project.
+# Everything else in /Users/luca is ignored.
+
+# Ignore all by default
+*
+
+# Allow this ignore file
+!.gitignore
+
+# Allow the website project
+!people-value-site/
+!people-value-site/**
