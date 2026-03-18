@@ -587,6 +587,14 @@ a {
   color: var(--text-muted);
 }
 
+.people-subtitle--secondary {
+  margin: -1.25rem auto 2rem;
+  max-width: 42ch;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
 .people-frame {
   position: relative;
   width: min(920px, 92vw);

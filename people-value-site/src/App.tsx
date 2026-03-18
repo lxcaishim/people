@@ -171,9 +171,11 @@ export function App() {
           <div className="container">
             <h2 className="people-title">Our people</h2>
             <p className="people-subtitle">
-              The first time each device opens the <strong>live</strong> site,
-              it adds one glow. Local preview shows the same total without
-              inflating the count.
+              One glow per browser — everyone who visits adds to the total.
+            </p>
+            <p className="people-subtitle people-subtitle--secondary">
+              Showcasing the power of human connection — and the endless
+              possibilities we can create.
             </p>
             <div className="people-frame-wrap">
               <div className="people-frame" role="img" aria-label="Our people dots">
