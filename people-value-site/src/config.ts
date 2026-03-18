@@ -1,12 +1,14 @@
+/** Live Solana mint — override with VITE_TOKEN_MINT / VITE_CA_DISPLAY in `.env` if needed */
+const LIVE_TOKEN_MINT =
+  "DECr2LsD1pHMQL93xq5oKm41871GtnAGsZvHG2fJjPPL";
+
+const envMint = (import.meta.env.VITE_TOKEN_MINT as string | undefined)?.trim();
+const envCa = (import.meta.env.VITE_CA_DISPLAY as string | undefined)?.trim();
+
 /**
- * When your token is live, set the Solana mint address:
- * - Create `.env` with VITE_TOKEN_MINT=YourAddressHere and restart dev server, or
- * - Replace the fallback string below (optional).
- *
- * Chart + “Open on DexScreener” use this automatically.
+ * Chart iframe + “Open on DexScreener” use this mint.
  */
-export const TOKEN_MINT =
-  (import.meta.env.VITE_TOKEN_MINT as string | undefined)?.trim() || "";
+export const TOKEN_MINT = envMint || LIVE_TOKEN_MINT;
 
 /** Pump.fun (footer + steps copy); coin page when live */
 export const PUMP_FUN_URL =
@@ -18,12 +20,8 @@ export const FOOTER_X_URL =
   (import.meta.env.VITE_FOOTER_X_URL as string | undefined)?.trim() ||
   "https://x.com";
 
-/**
- * Hero shows "CA: {value}". Until launch use TBD.
- * After launch set e.g. VITE_CA_DISPLAY=YourFullMintAddress (or short label).
- */
-export const CA_DISPLAY =
-  (import.meta.env.VITE_CA_DISPLAY as string | undefined)?.trim() || "TBD";
+/** Hero “CA: …” + clipboard — matches mint unless VITE_CA_DISPLAY is set */
+export const CA_DISPLAY = envCa || envMint || LIVE_TOKEN_MINT;
 
 /** Official Pump.fun logomark (green/white capsule) */
 export const PUMP_LOGOMARK_URL = "https://pump.fun/pump-logomark.svg";

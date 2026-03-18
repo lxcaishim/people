@@ -241,15 +241,17 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding: 0.75rem 1.25rem;
   min-height: 52px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(28, 28, 30, 0.1);
   border-radius: var(--radius);
   box-shadow: 0 2px 12px rgba(28, 28, 35, 0.06);
   cursor: default;
   max-width: min(100%, 340px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .btn--ca__label {
@@ -264,6 +266,10 @@ a {
   font-weight: 800;
   letter-spacing: 0.08em;
   color: var(--text);
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .btn--ca:not(:disabled) {
@@ -272,8 +278,9 @@ a {
 
 .btn--ca__copy {
   flex-shrink: 0;
-  margin-left: 0.35rem;
-  opacity: 0.75;
+  margin-left: 0.55rem;
+  opacity: 1;
+  display: inline-flex;
 }
 
 .btn--ca--copied .btn--ca__value {
@@ -281,14 +288,14 @@ a {
 }
 
 .btn--ca--address .btn--ca__value {
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: 600;
   font-family: ui-monospace, monospace;
   letter-spacing: 0.02em;
-  word-break: break-all;
-  line-height: 1.35;
+  word-break: normal;
+  line-height: 1.1;
   color: var(--text);
-  max-width: 280px;
+  max-width: 205px;
 }
 
 /* Pump.fun official logomark button */
