@@ -16,30 +16,8 @@ function looksLikeAsset(pathname: string): boolean {
   return !["tsx", "ts", "jsx", "js", "vue", "svelte"].includes(ext);
 }
 
-const PEOPLE_COUNT_NS = "peop1_lxcaishim";
-const PEOPLE_COUNT_KEY = "unique_browsers_v1";
-
 async function main() {
   const app = express();
-
-  app.get("/api/people-visit", async (req, res) => {
-    const mode = req.query.mode === "get" ? "get" : "hit";
-    const url =
-      mode === "get"
-        ? `https://api.countapi.xyz/get/${PEOPLE_COUNT_NS}/${PEOPLE_COUNT_KEY}`
-        : `https://api.countapi.xyz/hit/${PEOPLE_COUNT_NS}/${PEOPLE_COUNT_KEY}`;
-    try {
-      const r = await fetch(url);
-      const j = (await r.json()) as { value?: number };
-      const v = Number(j.value);
-      const count = Number.isFinite(v) && v >= 1 ? v : 1;
-      res.setHeader("Cache-Control", "no-store");
-      res.status(200).json({ count });
-    } catch {
-      res.setHeader("Cache-Control", "no-store");
-      res.status(200).json({ count: 1 });
-    }
-  });
 
   const vite = await createViteServer({
     server: { middlewareMode: true },

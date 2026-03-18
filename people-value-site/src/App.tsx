@@ -8,6 +8,7 @@ import {
   dexScreenerChartUrl,
   dexScreenerIframeSrc,
 } from "./config";
+import { fetchPeopleDotCount } from "./peopleCountSync";
 
 const year = new Date().getFullYear();
 
@@ -63,44 +64,10 @@ export function App() {
   const [peopleDots, setPeopleDots] = useState(1);
 
   useEffect(() => {
-    const REG = "people_value_site_registered_v1";
     let cancelled = false;
-
-    async function syncPeopleCount() {
-      let isNewVisitor = false;
-      try {
-        isNewVisitor = !localStorage.getItem(REG);
-      } catch {
-        isNewVisitor = true;
-      }
-
-      const mode = isNewVisitor ? "hit" : "get";
-      try {
-        const r = await fetch(`/api/people-visit?mode=${mode}`);
-        const j = (await r.json()) as { count?: number };
-        const count = Math.min(48, Math.max(1, Number(j.count) || 1));
-        if (isNewVisitor) {
-          try {
-            localStorage.setItem(REG, "1");
-          } catch {
-            /* private mode — may re-count on next visit */
-          }
-        }
-        if (!cancelled) setPeopleDots(count);
-      } catch {
-        try {
-          const key = "people_value_site_logins";
-          const current = Number(localStorage.getItem(key) || "0") || 0;
-          const next = current < 1 ? 1 : current + 1;
-          localStorage.setItem(key, String(next));
-          if (!cancelled) setPeopleDots(Math.min(48, Math.max(1, next)));
-        } catch {
-          if (!cancelled) setPeopleDots(1);
-        }
-      }
-    }
-
-    void syncPeopleCount();
+    void fetchPeopleDotCount().then((count) => {
+      if (!cancelled) setPeopleDots(count);
+    });
     return () => {
       cancelled = true;
     };
@@ -204,8 +171,9 @@ export function App() {
           <div className="container">
             <h2 className="people-title">Our people</h2>
             <p className="people-subtitle">
-              One glow per browser — everyone who visits adds to the total
-              (up to 48 on screen).
+              The first time each device opens the <strong>live</strong> site,
+              it adds one glow. Local preview shows the same total without
+              inflating the count.
             </p>
             <div className="people-frame-wrap">
               <div className="people-frame" role="img" aria-label="Our people dots">
