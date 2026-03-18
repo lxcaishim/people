@@ -10,3 +10,4 @@
 # Allow the website project
 !people-value-site/
 !people-value-site/**
+.splaskhit/
