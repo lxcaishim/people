@@ -1,4 +1,5 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import {
   TOKEN_MINT,
   PUMP_FUN_URL,
@@ -62,6 +63,24 @@ export function App() {
   const caIsTbd = CA_DISPLAY.toUpperCase() === "TBD";
   const [caCopied, setCaCopied] = useState(false);
   const [peopleDots, setPeopleDots] = useState(1);
+  const [isHeroInView, setIsHeroInView] = useState(true);
+  const tickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ticker = tickerRef.current;
+    if (!ticker) return;
+    const check = () => {
+      const top = ticker.getBoundingClientRect().top;
+      setIsHeroInView(top > 80);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -87,6 +106,30 @@ export function App() {
       <div className="page__glow page__glow--1" aria-hidden />
       <div className="page__glow page__glow--2" aria-hidden />
 
+      {createPortal(
+        <header
+          className={`site-header ${isHeroInView ? "site-header--transparent" : "site-header--solid"}`}
+          style={
+            isHeroInView
+              ? { background: "transparent", boxShadow: "none" }
+              : undefined
+          }
+        >
+          <div className="site-header__inner">
+            <a href="#" className="logo">
+              People
+            </a>
+            <nav className="nav">
+              <a href="#people">Our people</a>
+              <a href="#vision">Vision</a>
+              <a href="#chart">Chart</a>
+              <a href="#how-to-buy">How to buy</a>
+            </nav>
+          </div>
+        </header>,
+        document.body
+      )}
+
       <main>
         <section className="hero">
           <div className="hero__bg" aria-hidden>
@@ -100,20 +143,7 @@ export function App() {
             >
               <source src="/assets/hero-video.mp4" type="video/mp4" />
             </video>
-            <div className="hero__blend" />
-            <div className="hero__blend-bottom" aria-hidden />
           </div>
-          <header className="site-header hero__nav">
-            <a href="#" className="logo">
-              People
-            </a>
-            <nav className="nav">
-              <a href="#people">Our people</a>
-              <a href="#vision">Vision</a>
-              <a href="#chart">Chart</a>
-              <a href="#how-to-buy">How to buy</a>
-            </nav>
-          </header>
           <div className="hero__inner">
             <div className="hero__content">
               <h1 className="hero__word">People</h1>
@@ -166,6 +196,37 @@ export function App() {
             </div>
           </div>
         </section>
+
+        <div className="ticker-wrap" ref={tickerRef} aria-hidden>
+          <div className="ticker">
+            <div className="ticker__track">
+              <span className="ticker__item">PEOPLE FIRST</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">CONNECT</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">TOGETHER</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">LIVE FULLY</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">HUMAN CONNECTION</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">MAKE IT COUNT</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">PEOPLE FIRST</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">CONNECT</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">TOGETHER</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">LIVE FULLY</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">HUMAN CONNECTION</span>
+              <span className="ticker__diamond">◆</span>
+              <span className="ticker__item">MAKE IT COUNT</span>
+              <span className="ticker__diamond">◆</span>
+            </div>
+          </div>
+        </div>
 
         <section id="people" className="section section--people">
           <div className="container">
