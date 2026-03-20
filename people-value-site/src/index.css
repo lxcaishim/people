@@ -388,7 +388,7 @@ a {
   left: 0;
   right: 0;
   z-index: 10;
-  padding: 1rem min(5vw, 2.5rem);
+  padding: 1rem clamp(1.25rem, 4vw, 3.25rem);
   transition: background 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -397,8 +397,8 @@ a {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1120px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
 }
 
 .site-header--transparent {
@@ -426,6 +426,7 @@ a {
 .nav {
   flex-shrink: 0;
   margin-left: auto;
+  justify-content: flex-end;
 }
 
 .logo {
@@ -443,7 +444,7 @@ a {
 .nav {
   display: flex;
   align-items: center;
-  gap: 1.35rem;
+  gap: clamp(0.95rem, 1.8vw, 1.5rem);
 }
 
 .nav a:not(.btn) {
@@ -668,14 +669,15 @@ a {
 
 @media (max-width: 640px) {
   .site-header__inner {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 0.85rem;
   }
   .site-header .nav {
-    justify-content: center;
+    flex: 1 1 auto;
+    justify-content: flex-end;
     flex-wrap: wrap;
-    margin-left: 0;
+    margin-left: auto;
   }
 }
 
