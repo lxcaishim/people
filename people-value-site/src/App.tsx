@@ -240,7 +240,7 @@ export function App() {
             </p>
             <div className="people-frame-wrap">
               <div className="people-frame" role="img" aria-label="Our people dots">
-              {Array.from({ length: peopleDots }).map((_, i) => (
+              {Array.from({ length: peopleDots + 5 }).map((_, i) => (
                 <span
                   // eslint-disable-next-line react/no-array-index-key
                   key={i}
