@@ -149,7 +149,7 @@ export function App() {
               <h1 className="hero__word">People</h1>
               <div className="hero__actions">
                 <a
-                  href="https://x.com"
+                  href={FOOTER_X_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn--icon btn--hover"

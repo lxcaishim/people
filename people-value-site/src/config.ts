@@ -13,12 +13,12 @@ export const TOKEN_MINT = envMint || LIVE_TOKEN_MINT;
 /** Pump.fun (footer + steps copy); coin page when live */
 export const PUMP_FUN_URL =
   (import.meta.env.VITE_PUMP_FUN_URL as string | undefined)?.trim() ||
-  "https://pump.fun";
+  `https://pump.fun/coin/${encodeURIComponent(TOKEN_MINT)}`;
 
 /** Footer X link — set VITE_FOOTER_X_URL when you have the profile */
 export const FOOTER_X_URL =
   (import.meta.env.VITE_FOOTER_X_URL as string | undefined)?.trim() ||
-  "https://x.com";
+  "https://x.com/peopleonsol?s=21";
 
 /** Hero “CA: …” + clipboard — matches mint unless VITE_CA_DISPLAY is set */
 export const CA_DISPLAY = envCa || envMint || LIVE_TOKEN_MINT;
