@@ -1,6 +1,6 @@
 /** Live Solana mint — override with VITE_TOKEN_MINT / VITE_CA_DISPLAY in `.env` if needed */
 const LIVE_TOKEN_MINT =
-  "DECr2LsD1pHMQL93xq5oKm41871GtnAGsZvHG2fJjPPL";
+  "87xsAawiQfHeqzQ2gSJ8vXKLo2xw3ZBzRQ22o4qGjZcH";
 
 const envMint = (import.meta.env.VITE_TOKEN_MINT as string | undefined)?.trim();
 const envCa = (import.meta.env.VITE_CA_DISPLAY as string | undefined)?.trim();
